@@ -8,7 +8,11 @@
                 <div class="panel-heading">Welcome</div>
 
                 <div class="panel-body">
-                    Please register/login to use the tool.
+                    @if(!Auth::check())
+                        Please register/login to use the tool.
+                    @else
+                        Hello {{Auth::user()->email}}! Welcome.
+                    @endif
                 </div>
             </div>
         </div>
