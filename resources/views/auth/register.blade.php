@@ -7,6 +7,8 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Register</div>
                 <div class="panel-body">
+
+                @if(env('REGISTRATION_ENABLED', false))
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
                         {{ csrf_field() }}
 
@@ -74,6 +76,9 @@
                             </div>
                         </div>
                     </form>
+                    @else
+                        Registration is turned off at this time
+                    @endif
                 </div>
             </div>
         </div>
