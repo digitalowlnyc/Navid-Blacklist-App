@@ -8,7 +8,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Email Confirmation</div>
                     <div class="panel-body">
-                        <div class="lead">You must first confirm your email before logging in. Please use the form below if you need to request a confirmation email again.</div>
+                        <div class="lead">You must first confirm your email before using this feature. Please use the form below if you need to request a confirmation email again.</div>
 
                         <form class="form-horizontal" role="form" method="POST" action="{{ url('/send-confirmation') }}">
                             {{ csrf_field() }}
