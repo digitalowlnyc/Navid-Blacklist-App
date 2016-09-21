@@ -50,21 +50,15 @@
                         </form>
                     </div>
                     <div class="panel-body">
-                        <table class="table">
-                            <tr>
-                                <td>IBAN</td>
-                                <td># Times Submitted</td>
-                            </tr>
-                            @if($results !== null)
-                                @if(count($results) > 0)
-                                    @foreach($results as $entry)
-                                        <tr><td>{{$entry->account_id}}</td><td>{{$entry->count_account_id}}</td></tr>
-                                    @endforeach
-                                @else
-                                    No results
-                                @endif
+                        @if($results !== null)
+                            @if(count($results) === 0)
+                                <i class="fa fa-btn fa-check-circle-o"></i>
+                                The IBAN has not been reported on BLACKLIST.
+                            @else
+                                <i class="fa fa-btn fa-times-circle"></i>
+                                ATTENTION: The IBAN you have entered has been reported by other users on BLACKLIST. Please double check with the receiving party before transferring money.
                             @endif
-                        </table>
+                        @endif
                     </div>
                 </div>
             </div>
