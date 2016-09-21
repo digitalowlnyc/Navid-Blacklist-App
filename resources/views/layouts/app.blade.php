@@ -86,7 +86,7 @@
 
                 <!-- Branding Image -->
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    Blacklist Tool
+                    BLACKLIST
                 </a>
             </div>
 
