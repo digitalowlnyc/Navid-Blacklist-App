@@ -23,6 +23,52 @@
         .fa-btn {
             margin-right: 6px;
         }
+
+        .navbar-active {
+            background-color: #f52d70;
+        }
+
+        .navbar-static-top {
+            background-color: #000070;
+        }
+
+        .navbar-static-top a {
+            color: white !important;
+        }
+
+        .dropdown-menu {
+            background-color: #000070;
+        }
+
+        .dropdown-menu > li > a:hover {
+            background-color: #000070 !important;
+        }
+
+        .panel-body > table > tbody > tr > td {
+            border-color: #000070 !important;
+        }
+
+        .panel, .panel-heading, .panel-body {
+            border: 1px solid #f52d70;
+            border-radius: 0;
+        }
+
+        .panel-heading {
+            background-color: #f52d70 !important;
+            color: white !important;
+        }
+
+        .btn-primary {
+            background-color: #f52d70 !important;
+            border-radius: 0;
+            border: none;
+        }
+
+        .alert {
+            background-color: white !important;
+        }
+
+
     </style>
 </head>
 <body id="app-layout">
@@ -80,5 +126,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js" integrity="sha384-I6F5OKECLVtK/BL+8iSLDEHowSAfUo76ZL9+kGAgTRdiByINKJaqTPH/QVNS1VDb" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
+    <script src='https://rawgit.com/digitalowlnyc/js-scripts/master/navbar/activate-current-nav-element.js'></script>
+
 </body>
 </html>
