@@ -15,6 +15,7 @@ use App\Blacklist;
 use App\ConfirmationCode;
 use Illuminate\Support\Facades\Input;
 use App\User;
+use App\Http\Controllers\EmailController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -70,10 +71,7 @@ Route::post('/send-confirmation', function () {
         return redirect("user-confirmation")->withErrors($validator);
     }
 
-    Mail::send('auth.emails.confirmation', [], function($message) {
-        $message->to(Auth::user()->email);
-        $message->subject('Blacklist: Please confirm your email');
-    });
+    EmailController::sendConfirmationEmail(Auth::user());
 
     return view('confirmation-sent');
 });
@@ -107,13 +105,13 @@ function checkCaptcha($googleCaptchaResponse) {
 Route::post('/blacklist-search', function (Request $request) {
 
     $accountId = Input::get('account-id');
-
+/*
     if(!checkCaptcha(Input::get("g-recaptcha-response"))) {
         $validator = Validator::make([], []);
         $validator->errors()->add('g-captcha-input', 'Captcha response invalid');
         return redirect("blacklist-search")->withErrors($validator);
     }
-
+*/
     $entries = DB::table('blacklist')
         ->select('account_id', DB::raw('count(*) as count_account_id'))
         ->where("account_id", "=", $accountId)->get();
