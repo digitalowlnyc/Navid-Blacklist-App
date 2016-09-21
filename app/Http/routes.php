@@ -11,6 +11,9 @@
 |
 */
 
+
+define("BLACKLIST_INCLUSION_THRESHOLD", 5); // this many entries to trigger a display in the search
+
 use App\Blacklist;
 use App\ConfirmationCode;
 use Illuminate\Support\Facades\Input;
@@ -118,7 +121,7 @@ Route::post('/blacklist-search', function (Request $request) {
 
     $filtered = [];
     foreach($entries as $entry) {
-        if($entry->count_account_id < 2) {
+        if($entry->count_account_id < BLACKLIST_INCLUSION_THRESHOLD) {
             continue;
         }
         $filtered[] = $entry;
