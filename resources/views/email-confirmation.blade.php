@@ -6,12 +6,14 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Search Blacklist</div>
+                    <div class="panel-heading">Email Confirmation</div>
                     <div class="panel-body">
-                        <form class="form-horizontal" role="form" method="POST" action="{{ url('/blacklist-search') }}">
+                        <div class="lead">You must first confirm your email before logging in. Please use the form below if you need to request a confirmation email again.</div>
+
+                        <form class="form-horizontal" role="form" method="POST" action="{{ url('/send-confirmation') }}">
                             {{ csrf_field() }}
 
-                            <div class="form-group{{ $errors->has('account-id') ? ' has-error' : '' }}">
+                            <!--div class="form-group{{ $errors->has('account-id') ? ' has-error' : '' }}">
                                 <label for="account-id" class="col-md-4 control-label">IBAN</label>
 
                                 <div class="col-md-6">
@@ -23,10 +25,10 @@
                                     </span>
                                     @endif
                                 </div>
-                            </div>
+                            </div-->
 
 
-                            <!--div class="form-group{{ $errors->has('g-captcha-input') ? ' has-error' : '' }}">
+                            <div class="form-group{{ $errors->has('g-captcha-input') ? ' has-error' : '' }}">
                                 <label for="account-id" class="col-md-4 control-label">Captcha</label>
 
                                 <div class="col-md-6">
@@ -38,33 +40,16 @@
                                     </span>
                                     @endif
                                 </div>
-                            </div-->
+                            </div>
 
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
                                     <button type="submit" class="btn btn-primary">
-                                        <i class="fa fa-btn fa-sign-in"></i> Search
+                                        <i class="fa fa-btn fa-envelope-o"></i> Send Confirmation Email
                                     </button>
                                 </div>
                             </div>
                         </form>
-                    </div>
-                    <div class="panel-body">
-                        <table class="table">
-                            <tr>
-                                <td>IBAN</td>
-                                <td># Times Submitted</td>
-                            </tr>
-                            @if($results !== null)
-                                @if(count($results) > 0)
-                                    @foreach($results as $entry)
-                                        <tr><td>{{$entry->account_id}}</td><td>{{$entry->count_account_id}}</td></tr>
-                                    @endforeach
-                                @else
-                                    No results
-                                @endif
-                            @endif
-                        </table>
                     </div>
                 </div>
             </div>
