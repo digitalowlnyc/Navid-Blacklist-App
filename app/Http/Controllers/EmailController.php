@@ -17,7 +17,6 @@ class EmailController extends Controller {
     public static function sendConfirmationEmail($user) {
         Mail::send('auth.emails.confirmation', ["user" => $user], function($message) use($user) {
             $email = $user->email;
-            $email = "bryan@bluenestdigital.com";
             $message->to($email);
             $message->subject('Blacklist: Please confirm your email');
         });
