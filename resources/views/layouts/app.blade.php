@@ -96,6 +96,9 @@
                     <li><a href="{{ url('/blacklist-submit') }}">Submit to Blacklist</a></li>
                     <li><a href="{{ url('/blacklist-view') }}">View Blacklist</a></li>
                     <li><a href="{{ url('/blacklist-search') }}">Search Blacklist</a></li>
+                    @foreach(Config::get('blacklist-app.custom-page-navigation') as $navLink => $viewTemplateName)
+                        <li><a href="{{ url("/page/" . $viewTemplateName) }}">{{$navLink}}</a></li>
+                    @endforeach
                 </ul>
 
                 <!-- Right Side Of Navbar -->

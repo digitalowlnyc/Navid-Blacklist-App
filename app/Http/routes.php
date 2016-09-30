@@ -24,6 +24,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/page/{pageSlug}', function ($pageSlug) {
+    return view("custom-pages." . $pageSlug);
+});
+
 Route::get('/user-confirmation', function () {
     return view('email-confirmation');
 });
