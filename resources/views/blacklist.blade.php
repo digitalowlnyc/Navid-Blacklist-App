@@ -8,6 +8,11 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Submit Entry to Blacklist</div>
                     <div class="panel-body">
+                        @if (session('status'))
+                            <div class="alert alert-success">
+                                {{ session('status') }}
+                            </div>
+                        @endif
                         <form class="form-horizontal" role="form" method="POST" action="{{ url('/blacklist-rest') }}">
                             {{ csrf_field() }}
 
@@ -27,7 +32,7 @@
 
 
                             <div class="form-group{{ $errors->has('g-captcha-input') ? ' has-error' : '' }}">
-                                <label for="account-id" class="col-md-4 control-label">Captcha</label>
+                                <label for="g-captcha-input" class="col-md-4 control-label">Captcha</label>
 
                                 <div class="col-md-6">
                                     <div id="g-captcha-input" name="g-captcha-input" class="g-recaptcha" data-sitekey="6Ld8VCkTAAAAAAFCoSPBY4rkYMZXNX1hHOE-tt0w"></div>

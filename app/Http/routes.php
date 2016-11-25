@@ -12,13 +12,12 @@
 */
 
 
-define("BLACKLIST_INCLUSION_THRESHOLD", 5); // this many entries to trigger a display in the search
-
 use App\Blacklist;
 use App\ConfirmationCode;
 use Illuminate\Support\Facades\Input;
 use App\User;
 use App\Http\Controllers\EmailController;
+use Illuminate\Http\Request;
 
 Route::get('/', function () {
     return view('welcome');
@@ -125,7 +124,7 @@ Route::post('/blacklist-search', function (Request $request) {
 
     $filtered = [];
     foreach($entries as $entry) {
-        if($entry->count_account_id < BLACKLIST_INCLUSION_THRESHOLD) {
+        if($entry->count_account_id < intval(env('BLACKLIST_THRESHOLD', 2))) {
             continue;
         }
         $filtered[] = $entry;
@@ -141,15 +140,15 @@ Route::group(['middleware' => ['auth', "confirmed-user"]], function () {
     });
 
     Route::get('/blacklist-view', function () {
+        if(Auth::check() && Auth::user()->id != env('ADMIN_USER_ID', -1)) {
+            return("No access to this page");
+        }
         $entries = DB::table('blacklist')
             ->select('account_id', DB::raw('count(*) as count_account_id'))
             ->groupBy('account_id')->get();
 
         $filtered = [];
         foreach($entries as $entry) {
-            if($entry->count_account_id < 2) {
-                continue;
-            }
             $filtered[] = $entry;
         }
 
@@ -161,8 +160,19 @@ Route::group(['middleware' => ['auth', "confirmed-user"]], function () {
         $validator = Validator::make([], []);
 
         $accountId = Input::get('account-id');
+        $accountId = str_replace(" ", "", $accountId);
+        if($accountId == "") {
+            $validator->errors()->add('account-id', 'Please enter a valid IBAN');
+            return redirect("blacklist-submit")->withErrors($validator);
+        }
 
         $captchaValid = checkCaptcha(Input::get("g-recaptcha-response"));
+
+        $existingCountForUser = Blacklist::where(array("account_id" => $accountId, 'entered_by' => Auth::user()->id))->get()->count();
+        if($existingCountForUser > 0) {
+            $validator->errors()->add('account-id', 'You have already submitted that IBAN');
+            return redirect("blacklist-submit")->withErrors($validator);
+        }
 
         if(!$captchaValid) {
             $validator->errors()->add('g-captcha-input', 'Captcha response invalid');
@@ -174,7 +184,7 @@ Route::group(['middleware' => ['auth', "confirmed-user"]], function () {
             "account_id" => $accountId,
         ]);
 
-        return redirect("/blacklist-view");
+        return redirect("/blacklist-submit")->with('status', 'IBAN submitted successfully!');
     });
 });
 

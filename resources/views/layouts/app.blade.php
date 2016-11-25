@@ -94,7 +94,9 @@
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
                     <li><a href="{{ url('/blacklist-submit') }}">Submit to Blacklist</a></li>
-                    <li><a href="{{ url('/blacklist-view') }}">View Blacklist</a></li>
+                    @if(Auth::check() && Auth::user()->id === env('ADMIN_USER_ID', -1))
+                        <li><a href="{{ url('/blacklist-view') }}">View Blacklist</a></li>
+                    @endif
                     <li><a href="{{ url('/blacklist-search') }}">Search Blacklist</a></li>
                     @foreach(Config::get('blacklist-app.custom-page-navigation') as $navLink => $viewTemplateName)
                         <li><a href="{{ url("/page/" . $viewTemplateName) }}">{{$navLink}}</a></li>

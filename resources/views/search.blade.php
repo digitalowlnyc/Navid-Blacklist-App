@@ -8,6 +8,19 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Search Blacklist</div>
                     <div class="panel-body">
+                        @if($results !== null)
+                            @if(count($results) === 0)
+                                <div class="alert alert-success">
+                                    <i class="fa fa-btn fa-check-circle-o"></i>
+                                    The IBAN has not been reported on BLACKLIST.
+                                </div>
+                            @else
+                                <div class="alert alert-warning">
+                                    <i class="fa fa-btn fa-times-circle"></i>
+                                    ATTENTION: The IBAN you have entered has been reported by other users on BLACKLIST. Please double check with the receiving party before transferring money.
+                                </div>
+                            @endif
+                        @endif
                         <form class="form-horizontal" role="form" method="POST" action="{{ url('/blacklist-search') }}">
                             {{ csrf_field() }}
 
@@ -48,17 +61,6 @@
                                 </div>
                             </div>
                         </form>
-                    </div>
-                    <div class="panel-body">
-                        @if($results !== null)
-                            @if(count($results) === 0)
-                                <i class="fa fa-btn fa-check-circle-o"></i>
-                                The IBAN has not been reported on BLACKLIST.
-                            @else
-                                <i class="fa fa-btn fa-times-circle"></i>
-                                ATTENTION: The IBAN you have entered has been reported by other users on BLACKLIST. Please double check with the receiving party before transferring money.
-                            @endif
-                        @endif
                     </div>
                 </div>
             </div>
